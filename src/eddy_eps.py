@@ -220,7 +220,3 @@ class EddyEps():
 
     def _max9634_v_to_i(self, v_sense, r_sense, gain):
         return v_sense / (r_sense * gain)
-
-eps = EddyEps(smbus_num=1)
-
-eps.print_measurement_table()
