@@ -76,7 +76,7 @@ class EddyEps():
     ###########################################################################
     def _adc_read_channel_single_ended(self,adc=None,adc_ch=None):
         if adc is not None and adc_ch is not None:
-            if ch < 0 or ch > self._channels_per_adc:
+            if adc_ch < 0 or adc_ch > self._channels_per_adc:
                 raise ValueError('Invalid ch value provided')
             if adc == 'ADC_0' or adc == 0:
                 return self._adc_0.read_channel_single_ended(adc_ch, internal_ref_on=True, ad_on=True)
