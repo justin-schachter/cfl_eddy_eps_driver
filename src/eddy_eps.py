@@ -202,23 +202,23 @@ class EddyEps():
         #print(f'EPS_CH: {eps_ch}, ADC_CH: {adc_ch}, ADC_NUM: {adc_num}')
         raise ValueError('Provided EPS ADC channel (in scope of EPS global scope assignments) did not match any of the assignments in AdcChannelScope(Enum)')
 
-    def _lm20_transfer_func_deg_c(self,voltage):
+    def _lm20_transfer_func_deg_c(self, voltage):
         """
         converts LM20 voltage to temperature in degC
         """
         return (-1481.96 + math.sqrt(2.1962e6 + ((1.8639 - voltage)/3.88e-6)))
 
-    def _lm20_transfer_func_deg_f(self,voltage):
+    def _lm20_transfer_func_deg_f(self, voltage):
         """
         converts LM20 voltage to temperature in degC
         """
         return (-1481.96 + math.sqrt(2.1962e6 + ((1.8639 - voltage)/3.88e-6)))*(9/5) + 32
 
-    def _voltage_divider_reversal(v2, r1, r2):
+    def _voltage_divider_reversal(self, v2, r1, r2):
         v1 = v2 * ((r1 + r2)/r2)
         return v1
 
-    def _max9634_v_to_i(v_sense, r_sense, gain):
+    def _max9634_v_to_i(self, v_sense, r_sense, gain):
         return v_sense / (r_sense * gain)
 
 eps = EddyEps(smbus_num=1)
