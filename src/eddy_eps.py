@@ -85,7 +85,8 @@ class EddyEps():
             raise ValueError('Invalid adc value provided')
     
     def _eps_read_channel_single_ended(self,eps_ch):
-        adc_ch = (eps_ch+1) % 8 - 1
+        adc_ch_mod = (eps_ch+1) % self._channels_per_adc - 1
+        adc_ch = adc_ch_mod if adc_ch_mod > 0 else (self._channels_per_adc -1)
         adc_num = None
 
         for adc in self.AdcChannelScope:
