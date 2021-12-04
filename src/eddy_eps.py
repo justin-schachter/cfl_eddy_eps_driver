@@ -74,15 +74,18 @@ class EddyEps():
     ###########################################################################
     # PRIVATE MEMBER METHODS
     ###########################################################################
-    def _adc_read_channel_single_ended(self,adc,adc_ch):
-        if ch < 0 or ch > self._channels_per_adc:
-            raise ValueError('Invalid ch value provided')
-        if adc == 'ADC_0' or adc == 0:
-            return self._adc_0.read_channel_single_ended(adc_ch, internal_ref_on=True, ad_on=True)
-        elif adc == 'ADC_1' or adc == 1:
-            return self._adc_0.read_channel_single_ended(adc_ch, internal_ref_on=True, ad_on=True)
+    def _adc_read_channel_single_ended(self,adc=None,ch=None):
+        if adc not None and ch not None:
+            if ch < 0 or ch > self._channels_per_adc:
+                raise ValueError('Invalid ch value provided')
+            if adc == 'ADC_0' or adc == 0:
+                return self._adc_0.read_channel_single_ended(adc_ch, internal_ref_on=True, ad_on=True)
+            elif adc == 'ADC_1' or adc == 1:
+                return self._adc_0.read_channel_single_ended(adc_ch, internal_ref_on=True, ad_on=True)
+            else:
+                raise ValueError('Invalid adc value provided')
         else:
-            raise ValueError('Invalid adc value provided')
+            raise ValueError('Value provided for adc or ch is None')
     
     def _eps_read_channel_single_ended(self,eps_ch):
         adc_ch_mod = (eps_ch+1) % self._channels_per_adc - 1
@@ -92,16 +95,12 @@ class EddyEps():
         for adc in self.AdcChannelScope:
             if eps_ch in adc.value:
                 adc_num = int(adc.name.replace('ADC_',''))
-        
-        print(f'EPS_CH: {eps_ch}, ADC_CH: {adc_ch}, ADC_NUM: {adc_num}')
-        #raise ValueError('Provided EPS ADC channel (in scope of EPS global scope assignments) did not match any of the assignments in AdcChannelScope(Enum)')
-
-        
-
-                # return _adc_read_channel_single_ended(adc.name,)
+                return self._adc_read_channel_single_ended(adc=adc_num, ch=adc_ch)
+        #Error Handling:
+        #print(f'EPS_CH: {eps_ch}, ADC_CH: {adc_ch}, ADC_NUM: {adc_num}')
+        raise ValueError('Provided EPS ADC channel (in scope of EPS global scope assignments) did not match any of the assignments in AdcChannelScope(Enum)')
 
 
 eps = EddyEps(smbus_num=1)
 
-for i in range(17):
-    eps._eps_read_channel_single_ended(i)
+eps.read_channel_single_ended(5)*(112/12)
