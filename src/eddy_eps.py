@@ -155,7 +155,7 @@ class EddyEps():
         else: 
             raise ValueError('Invalid temperature unit selected')
 
-    def print_measurement_table():
+    def print_measurement_table(self):
         header = ['CHANNEL', 'MEASUREMENT', 'UNIT']
         table = [ header,
                  ['V VBATT RAW', self.get_voltage_vbatt_raw(), 'V'],
