@@ -16,4 +16,4 @@ print( ['V VBATT RAW', eps.get_voltage_vbatt_raw(), 'V'],
        ['3V3 REG TEMP', eps.get_temp_3v3_reg(unit='f'), 'F'],
        ['5V0 REG TEMP', eps.get_temp_5v0_reg(), 'C'],
        ['5V0 REG TEMP', eps.get_temp_5v0_reg(unit='f'), 'F'],
-        ])
+)
