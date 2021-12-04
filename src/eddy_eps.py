@@ -103,4 +103,5 @@ class EddyEps():
 
 eps = EddyEps(smbus_num=1)
 
-eps._eps_read_channel_single_ended(5)*(112/12)
+test_val = eps._eps_read_channel_single_ended(5)*(112/12)
+print(test_val)
