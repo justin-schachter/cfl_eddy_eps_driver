@@ -91,11 +91,15 @@ class EddyEps():
         for adc in self.AdcChannelScope:
             if eps_ch in adc.value:
                 adc_num = int(adc.name.replace('ADC_',''))
-
         print(f'EPS_CH: {eps_ch}, ADC_CH: {adc_ch}, ADC_NUM: {adc_num}')
+        raise ValueError('Provided EPS ADC channel (in scope of EPS global scope assignments) did not match any of the assignments in AdcChannelScope(Enum)')
+
+        
 
                 # return _adc_read_channel_single_ended(adc.name,)
 
 
 eps = EddyEps(smbus_num=1)
-eps._eps_read_channel_single_ended(5)
+
+for i in range(17):
+    eps._eps_read_channel_single_ended(i)
