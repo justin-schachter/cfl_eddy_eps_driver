@@ -89,7 +89,7 @@ class EddyEps():
         raw_adc_v = self._eps_read_channel_single_ended(channel)
         r_sense = 12e-3 #Ohms
         gain = 100      #V/V
-        return self._voltage_divider_reversal(raw_adc_v, r_sense, gain)
+        return self._max9634_v_to_i(raw_adc_v, r_sense, gain)
 
     def get_voltage_3v3(self):
         channel = self._channel_enum.V_3V3
@@ -103,7 +103,7 @@ class EddyEps():
         raw_adc_v = self._eps_read_channel_single_ended(channel)
         r_sense = 5e-3  #Ohms
         gain = 100      #V/V
-        return self._voltage_divider_reversal(raw_adc_v, r_sense, gain)
+        return self._max9634_v_to_i(raw_adc_v, r_sense, gain)
 
     def get_voltage_5v0(self):
         channel = self._channel_enum.V_5V0
@@ -117,7 +117,7 @@ class EddyEps():
         raw_adc_v = self._eps_read_channel_single_ended(channel)
         r_sense = 12e-3 #Ohms
         gain = 100      #V/V
-        return self._voltage_divider_reversal(raw_adc_v, r_sense, gain)
+        return self._max9634_v_to_i(raw_adc_v, r_sense, gain)
 
     def get_voltage_vbatt(self):
         channel = self._channel_enum.V_VBATT
@@ -131,7 +131,7 @@ class EddyEps():
         raw_adc_v = self._eps_read_channel_single_ended(channel)
         r_sense = 12e-3 #Ohms
         gain = 100      #V/V
-        return self._voltage_divider_reversal(raw_adc_v, r_sense, gain)
+        return self._max9634_v_to_i(raw_adc_v, r_sense, gain)
     
     def get_temp_3v3_reg(self, unit='c'):
         channel = self._channel_enum.LM20_3V3_REG
@@ -219,4 +219,4 @@ class EddyEps():
         return v1
 
     def _max9634_v_to_i(self, v_sense, r_sense, gain):
-        return v_sense / (r_sense * gain)
+        return (v_sense / (r_sense * gain))
